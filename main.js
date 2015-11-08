@@ -1,4 +1,6 @@
 function List(){
+	/* Constructor
+	 */
 	List.makeNode = function(){
 		return {data:null,next:null};
 	}
@@ -6,6 +8,10 @@ function List(){
 	this.start=null;
 	this.end=null;
 
+	/*
+	 * Add
+	 *  Adds a new node containing data to the end of the list
+	 */
 	this.add = (data)=>{
 		if(this.start===null){
 			this.start=List.makeNode();
@@ -18,6 +24,9 @@ function List(){
 		this.end.data = data;
 	}
 
+	/*
+	 * Inserts a new node at the front of the list
+	 */
 	this.insertAsFirst = (data)=>{
 		var t = new List.makeNode();
 		t.data = data;
@@ -25,6 +34,10 @@ function List(){
 		this.start = t;
 	}
 
+	/*
+	 *	PrintList
+	 *	 prints the list for debugging purposes
+	 */
 	this.printList = ()=>{
 		var current = this.start;
 		var i = 0
@@ -36,6 +49,10 @@ function List(){
 		}
 	}
 
+	/*
+	 * InsertAfter
+	 *  inserts after the node containing ref
+	 */
 	this.insertAfter = (ref,data)=>{
 		var current = this.start;
 		// case when inserting after first node
@@ -64,6 +81,10 @@ function List(){
 		}
 	}
 
+	/*
+	 * Delete
+	 *  Delete the node containing data
+	 */
 	this.delete = (data)=>{
 		if(this.start.data === data){
 			// first element to be deleted
@@ -83,6 +104,10 @@ function List(){
 		}
 	}
 
+	/*
+	 * Get
+	 * 	Returns node at index 
+	 */
 	this.get = (i) =>{
 		var current = this.start;
 		while(i !==0){
@@ -93,12 +118,31 @@ function List(){
 		return current;
 	}
 
+	/*
+	 * Each
+	 * 	Does fn to each in the list
+	 */
 	this.each = (fn) =>{
 		var current = this.start;
+		while(current){
+			fn(current.data);
+			current=current.next;
+		}
+	}
+
+	/*
+	 * Map: 
+	 * 	returns a *new* element with the fn done to each element
+	 */ 
+	this.map = (fn) =>{
+		var newLL = Object.assign({},this);//fuck you I won't polyfill es5 
+		var current = newLL.start;
 		while(current){
 			current.data = fn(current.data);
 			current=current.next;
 		}
+		newLL.printList();
+		return newLL;
 	}
 }
 

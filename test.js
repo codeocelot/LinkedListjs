@@ -51,19 +51,20 @@ function testGet(){
 	assert.equal(ll.get(9).data,9);
 }
 
-function testEach(){
+function testMap(){
 	function addOne(i){
 		return ++i;
 	}
 	var ll = testAdd();
-	ll.each(addOne);
-	assert.equal(ll.get(0).data,1);
-	assert.equal(ll.get(6).data,7);
-	assert.equal(ll.get(9).data,10);
+	newLL = ll.map(addOne);
+	//newLL.printList();
+	assert.equal(newLL.get(0).data,1);
+	assert.equal(newLL.get(6).data,7);
+	assert.equal(newLL.get(9).data,10);
 }
 
 testInsertAfter();
 testAdd();
 testDelete();
 testGet();
-testEach()
+testMap()
